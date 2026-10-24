@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>geko — Официальное Био | Владелец сервера Minecraft & Геймер</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & JetBrains Mono & Unbounded -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Unbounded:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                        display: ['Unbounded', 'sans-serif'],
+                    },
+                    colors: {
+                        obsidian: '#050508',
+                        void: '#0f071e',
+                        neonPurple: '#9333ea',
+                        deepPurple: '#6b21a8',
+                        glowPurple: '#c084fc',
+                    },
+                    animation: {
+                        'spin-slow': 'spin 8s linear infinite',
+                        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'gradient-x': 'gradientX 6s ease infinite',
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.6', transform: 'scale(1)' },
+                            '50%': { opacity: '1', transform: 'scale(1.06)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-8px)' },
+                        },
+                        gradientX: {
+                            '0%, 100%': { 'background-size': '200% 200%', 'background-position': 'left center' },
+                            '50%': { 'background-size': '200% 200%', 'background-position': 'right center' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Пользовательские стили для неоновой эстетики и стекломорфизма */
+        :root {
+            --bg-dark: #050508;
+            --bg-deep: #0f071e;
+            --purple-main: #9333ea;
+            --purple-bright: #c084fc;
+            --purple-deep: #6b21a8;
+        }
+
+        * {
+            box-sizing: border-box;
+            scrollbar-width: thin;
+            scrollbar-color: #9333ea #050508;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050508;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #6b21a8, #9333ea);
+            border-radius: 9999px;
+        }
+
+        body {
+            background-color: #050508;
+            color: #f8fafc;
+            overflow-x: hidden;
+            selection-background-color: #9333ea;
+        }
+
+        ::selection {
+            background: rgba(147, 51, 234, 0.4);
+            color: #ffffff;
+        }
+
+        /* Анимированная градиентная сетка на фоне */
+        .bg-mesh {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 15% 20%, rgba(107, 33, 168, 0.28) 0%, transparent 45%),
+                radial-gradient(circle at 85% 25%, rgba(147, 51, 234, 0.22) 0%, transparent 40%),
+                radial-gradient(circle at 50% 80%, rgba(192, 132, 252, 0.16) 0%, transparent 50%),
+                linear-gradient(180deg, #050508 0%, #0f071e 50%, #050508 100%);
+        }
+
+        /* Кибер-сетка поверх фона */
+        .cyber-grid {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background-image: 
+                linear-gradient(to right, rgba(147, 51, 234, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(147, 51, 234, 0.05) 1px, transparent 1px);
+            background-size: 45px 45px;
+            mask-image: radial-gradient(circle at center, black 35%, transparent 90%);
+            -webkit-mask-image: radial-gradient(circle at center, black 35%, transparent 90%);
+            pointer-events: none;
+        }
+
+        /* Холст с частицами */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Стеклянные карточки (Glassmorphism) */
+        .glass-card {
+            background: rgba(15, 7, 30, 0.55);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(192, 132, 252, 0.18);
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.7),
+                0 0 35px rgba(147, 51, 234, 0.12),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(192, 132, 252, 0.45);
+            box-shadow: 
+                0 25px 60px rgba(0, 0, 0, 0.8),
+                0 0 45px rgba(147, 51, 234, 0.28),
+                inset 0 1px 1px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Эффект подсветки курсора внутри карточек */
+        .spotlight-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(
+                500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                rgba(192, 132, 252, 0.13),
+                transparent 40%
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .spotlight-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Светящийся градиентный текст для ника geko */
+        .geko-title {
+            background: linear-gradient(90deg, #ffffff 0%, #e9d5ff 25%, #c084fc 50%, #9333ea 75%, #ffffff 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shineText 4s linear infinite;
+            filter: drop-shadow(0 0 20px rgba(147, 51, 234, 0.55));
+        }
+
+        @keyframes shineText {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        /* Вращающееся неоновое кольцо вокруг аватара */
+        .avatar-ring {
+            background: conic-gradient(from 0deg, #050508, #6b21a8, #9333ea, #c084fc, #f3e8ff, #c084fc, #6b21a8, #050508);
+            animation: spin 4s linear infinite;
+        }
+
+        /* Мигающий курсор печатной машинки */
+        .typewriter-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.2em;
+            background-color: #c084fc;
+            margin-left: 4px;
+            vertical-align: middle;
+            box-shadow: 0 0 10px #c084fc;
+            animation: blink 0.9s infinite;
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        /* Плавное появление секций при загрузке */
+        .reveal-item {
+            opacity: 0;
+            transform: translateY(24px);
+            animation: revealUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.22s; }
+        .delay-300 { animation-delay: 0.34s; }
+        .delay-400 { animation-delay: 0.46s; }
+
+        @keyframes revealUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Неоновая кнопка */
+        .neon-btn {
+            background: linear-gradient(135deg, #6b21a8 0%, #9333ea 50%, #7e22ce 100%);
+            box-shadow: 0 0 20px rgba(147, 51, 234, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .neon-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 0 30px rgba(192, 132, 252, 0.75), inset 0 1px 2px rgba(255, 255, 255, 0.45);
+        }
+
+        .neon-btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        /* 3D перспектива для карточек */
+        .tilt-wrapper {
+            perspective: 1200px;
+        }
+
+        .tilt-element {
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+    </style>
+</head>
+<body class="min-h-screen antialiased selection:bg-purple-600 selection:text-white relative">
+
+    <!-- Фоновые слои -->
+    <div class="bg-mesh"></div>
+    <div class="cyber-grid"></div>
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Верхняя панель управления (Звук, 3D-эффект, Онлайн-статус) -->
+    <header class="w-full max-w-4xl mx-auto px-4 pt-5 pb-2 flex items-center justify-between z-20 relative reveal-item">
+        <div class="flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-void/80 border border-purple-500/25 backdrop-blur-md shadow-lg">
+            <span class="relative flex h-2.5 w-2.5">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-purple-500"></span>
+            </span>
+            <span class="text-xs font-mono tracking-wider text-purple-200/90 uppercase">geko.bio // v2.5</span>
+        </div>
+
+        <div class="flex items-center gap-2">
+            <!-- Кнопка переключения 3D наклона -->
+            <button id="toggle-tilt-btn" onclick="toggleTiltEffect()" class="px-3 py-1.5 rounded-full bg-void/80 hover:bg-purple-950/70 border border-purple-500/30 text-xs font-mono text-purple-200 flex items-center gap-1.5 transition-all" title="Включить/выключить 3D наклон">
+                <svg class="w-3.5 h-3.5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"/>
+                </svg>
+                <span id="tilt-status-text">3D: ВКЛ</span>
+            </button>
+
+            <!-- Кнопка звуковых эффектов интерфейса -->
+            <button id="toggle-sfx-btn" onclick="toggleSoundEffects()" class="px-3 py-1.5 rounded-full bg-void/80 hover:bg-purple-950/70 border border-purple-500/30 text-xs font-mono text-purple-200 flex items-center gap-1.5 transition-all" title="Звуковые эффекты кликов">
+                <svg id="sfx-icon" class="w-3.5 h-3.5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                </svg>
+                <span id="sfx-status-text">SFX: ВКЛ</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Основной контейнер -->
+    <main class="w-full max-w-4xl mx-auto px-4 py-6 space-y-8 relative z-10 pb-20">
+
+        <!-- 1. ГЛАВНАЯ КАРТОЧКА ПРОФИЛЯ (С 3D-эффектом наклона) -->
+        <section class="tilt-wrapper reveal-item delay-100">
+            <div id="hero-card" class="glass-card spotlight-card tilt-element rounded-3xl p-6 sm:p-10 relative">
+                
+                <!-- Декоративное неоновое свечение сверху карточки -->
+                <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-48 bg-purple-600/25 rounded-full blur-3xl pointer-events-none"></div>
+
+                <!-- Верхние бейджи профиля -->
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-6 relative z-10">
+                    <!-- Статус онлайн -->
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-xs font-medium shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+                        <span class="relative flex h-2.5 w-2.5">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
+                        </span>
+                        В сети • Готов к игре
+                    </div>
+
+                    <!-- Корона владельца сервера -->
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-purple-950/80 via-fuchsia-950/80 to-purple-950/80 border border-purple-400/40 text-purple-200 text-xs font-semibold shadow-[0_0_20px_rgba(168,85,247,0.3)]">
+                        <svg class="w-4 h-4 text-amber-400 drop-shadow-[0_0_6px_rgba(251,191,36,0.8)]" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/>
+                        </svg>
+                        <span>Владелец сервера</span>
+                    </div>
+                </div>
+
+                <!-- Основная информация профиля (без аватара) -->
+                <div class="relative z-10 text-center md:text-left">
+                    <div class="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-4 justify-center md:justify-start">
+                        <h1 class="text-5xl sm:text-6xl font-display font-black tracking-tight geko-title select-all">
+                            geko
+                        </h1>
+                        <span class="inline-flex items-center self-center md:self-auto gap-1 px-2.5 py-0.5 rounded-md bg-purple-500/20 border border-purple-400/30 text-purple-300 font-mono text-xs">
+                            #0001
+                        </span>
+                    </div>
+
+                    <!-- Строка с эффектом печатной машинки -->
+                    <div class="mt-3 h-7 flex items-center justify-center md:justify-start">
+                        <span class="text-purple-400 font-mono text-sm sm:text-base mr-2">&gt;</span>
+                        <span id="typewriter-text" class="text-base sm:text-lg font-mono font-semibold text-purple-200 tracking-wide"></span>
+                        <span class="typewriter-cursor"></span>
+                    </div>
+
+                    <!-- Краткое описание био -->
+                    <p class="mt-3.5 text-slate-300/90 text-sm sm:text-base leading-relaxed max-w-2xl">
+                        Привет! Я <span class="text-purple-300 font-semibold">geko</span> — создатель и владелец собственного проекта в <span class="text-white font-medium">Minecraft</span>, а также фанат соревновательных и кооперативных игр. Провожу время за настройкой серверов, катками в <span class="text-purple-300">CS2</span> и <span class="text-purple-300">Dota 2</span>, а также чиллю в <span class="text-purple-300">Roblox</span>.
+                    </p>
+
+                    <!-- Мини-статистика / теги профиля -->
+                    <div class="mt-6 flex flex-wrap items-center justify-center md:justify-start gap-2.5">
+                        <div class="px-3.5 py-1.5 rounded-xl bg-white/[0.04] border border-purple-500/20 flex items-center gap-2 text-xs text-slate-300">
+                            <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/>
+                            </svg>
+                            <span>Статус: <strong class="text-purple-300">Владелец сервера</strong></span>
+                        </div>
+
+                        <div class="px-3.5 py-1.5 rounded-xl bg-white/[0.04] border border-purple-500/20 flex items-center gap-2 text-xs text-slate-300">
+                            <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>4 основные дисциплины</span>
+                        </div>
+
+                        <div class="px-3.5 py-1.5 rounded-xl bg-white/[0.04] border border-purple-500/20 flex items-center gap-2 text-xs text-slate-300">
+                            <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                            <span>Пинг: <strong class="text-emerald-400 font-mono">14 ms</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. СТАТУС ВЛАДЕЛЬЦА СЕРВЕРА MINECRAFT -->
+        <section class="reveal-item delay-200">
+            <div class="glass-card spotlight-card game-tilt-card rounded-3xl p-6 sm:p-8 border-purple-500/40 relative overflow-hidden group">
+                <!-- Неоновые фоновые блики -->
+                <div class="absolute -left-16 -top-16 w-64 h-64 bg-purple-600/25 rounded-full blur-3xl pointer-events-none group-hover:bg-purple-500/35 transition duration-500"></div>
+                <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-fuchsia-600/20 rounded-full blur-3xl pointer-events-none group-hover:bg-fuchsia-500/30 transition duration-500"></div>
+
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-6 relative z-10 text-center sm:text-left">
+                    <div class="flex flex-col sm:flex-row items-center gap-5">
+                        <!-- Светящаяся иконка короны и куба Minecraft -->
+                        <div class="relative shrink-0">
+                            <div class="absolute -inset-1.5 bg-gradient-to-r from-purple-600 via-fuchsia-500 to-purple-600 rounded-2xl blur-md opacity-70 group-hover:opacity-100 transition duration-500 animate-pulse-glow"></div>
+                            <div class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-obsidian/90 border border-purple-400/50 flex items-center justify-center shadow-[0_0_30px_rgba(147,51,234,0.45)] group-hover:scale-105 transition duration-300">
+                                <svg class="w-9 h-9 sm:w-11 sm:h-11 text-purple-300 drop-shadow-[0_0_10px_rgba(192,132,252,0.8)]" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Заголовок и подзаголовок -->
+                        <div class="space-y-1.5">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-950/80 border border-purple-400/35 text-[11px] font-mono font-semibold text-purple-300 uppercase tracking-widest shadow-[0_0_15px_rgba(147,51,234,0.25)]">
+                                <span class="w-2 h-2 rounded-full bg-purple-400 animate-ping"></span>
+                                FOUNDER &amp; OWNER
+                            </div>
+                            <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight group-hover:text-purple-200 transition">
+                                Владелец сервера Minecraft
+                            </h2>
+                            <p class="text-sm sm:text-base text-purple-200/75 font-medium">
+                                Создатель и главный администратор собственного проекта
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Правый декоративный бейдж статуса -->
+                    <div class="shrink-0 flex flex-col items-center sm:items-end gap-2">
+                        <div class="px-4 py-2.5 rounded-2xl bg-obsidian/80 border border-purple-500/35 shadow-inner flex items-center gap-3">
+                            <svg class="w-5 h-5 text-purple-400 animate-float" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+                                <polyline stroke-linecap="round" stroke-linejoin="round" points="3.27 6.96 12 12.01 20.73 6.96"/>
+                                <line stroke-linecap="round" stroke-linejoin="round" x1="12" y1="22.08" x2="12" y2="12"/>
+                            </svg>
+                            <div class="text-left">
+                                <div class="text-[10px] font-mono uppercase tracking-wider text-purple-400">Роль в игре</div>
+                                <div class="text-xs sm:text-sm font-mono font-bold text-white">SERVER OWNER</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. СЕКЦИЯ ЛЮБИМЫХ ИГР ("Во что я играю") -->
+        <section class="reveal-item delay-300">
+            <div class="flex items-center justify-between mb-4 px-1">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-2 h-6 rounded-full bg-gradient-to-b from-purple-400 to-purple-700 shadow-[0_0_12px_#9333ea]"></span>
+                    <h2 class="text-xl sm:text-2xl font-display font-bold text-white tracking-tight">
+                        Во что я играю
+                    </h2>
+                </div>
+                <span class="text-xs font-mono text-slate-400">
+                    Наведи на карточку
+                </span>
+            </div>
+
+            <!-- Сетка из 4 карточек игр -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                <!-- Игра 1: Minecraft -->
+                <div class="glass-card spotlight-card game-tilt-card rounded-2xl p-6 group cursor-pointer" onclick="copyTextToClipboard('geko', 'Никнейм geko скопирован!')">
+                    <div class="flex items-start justify-between gap-4 mb-4 relative z-10">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-700/40 to-emerald-900/40 border border-purple-400/30 flex items-center justify-center group-hover:scale-110 group-hover:border-purple-400 transition duration-300 shadow-lg">
+                                <!-- Иконка меча/блока Minecraft -->
+                                <svg class="w-8 h-8 text-purple-300 group-hover:text-white transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h3 class="text-lg font-display font-bold text-white group-hover:text-purple-300 transition">
+                                        Minecraft
+                                    </h3>
+                                    <span class="px-2 py-0.5 text-[10px] font-mono uppercase rounded bg-purple-500/25 text-purple-200 border border-purple-400/30">
+                                        MAIN
+                                    </span>
+                                </div>
+                                <p class="text-xs font-mono text-purple-300/80 mt-0.5">
+                                    Владелец проекта • Строительство & Выживание
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-sm text-slate-300/90 leading-relaxed mb-4 relative z-10">
+                        Разрабатываю сборки, настраиваю плагины, создаю масштабные спавны и провожу ивенты на собственном сервере.
+                    </p>
+
+                    <div class="pt-3 border-t border-purple-500/20 flex items-center justify-between text-xs font-mono relative z-10">
+                        <span class="text-slate-400">Опыт: <strong class="text-purple-300">5,000+ ч.</strong></span>
+                        <span class="text-purple-300 group-hover:translate-x-1 transition inline-flex items-center gap-1">
+                            Владелец сервера →
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Игра 2: Roblox -->
+                <div class="glass-card spotlight-card game-tilt-card rounded-2xl p-6 group cursor-pointer" onclick="copyTextToClipboard('geko', 'Никнейм geko скопирован для добавления в Roblox!')">
+                    <div class="flex items-start justify-between gap-4 mb-4 relative z-10">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-700/40 to-fuchsia-900/40 border border-purple-400/30 flex items-center justify-center group-hover:scale-110 group-hover:border-purple-400 transition duration-300 shadow-lg">
+                                <!-- Стилизованный логотип Roblox (наклонённый квадрат с отверстием) -->
+                                <svg class="w-8 h-8 text-purple-300 group-hover:text-white transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="5" y="5" width="14" height="14" rx="2" transform="rotate(15 12 12)" />
+                                    <rect x="10" y="10" width="4" height="4" transform="rotate(15 12 12)" fill="currentColor" />
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h3 class="text-lg font-display font-bold text-white group-hover:text-purple-300 transition">
+                                        Roblox
+                                    </h3>
+                                    <span class="px-2 py-0.5 text-[10px] font-mono uppercase rounded bg-fuchsia-500/25 text-fuchsia-200 border border-fuchsia-400/30">
+                                        CHILL & FUN
+                                    </span>
+                                </div>
+                                <p class="text-xs font-mono text-purple-300/80 mt-0.5">
+                                    Разные режимы • Фан & Трейдинг
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-sm text-slate-300/90 leading-relaxed mb-4 relative z-10">
+                        Залетаю с друзьями в популярные плейсы, кастомные режимы, симуляторы, хорроры и трейдинг-хабы.
+                    </p>
+
+                    <div class="pt-3 border-t border-purple-500/20 flex items-center justify-between text-xs font-mono relative z-10">
+                        <span class="text-slate-400">Опыт: <strong class="text-purple-300">1,800+ ч.</strong></span>
+                        <span class="text-purple-300 group-hover:translate-x-1 transition inline-flex items-center gap-1">
+                            Ник: geko →
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Игра 3: Counter-Strike 2 (CS2) -->
+                <div class="glass-card spotlight-card game-tilt-card rounded-2xl p-6 group cursor-pointer" onclick="copyTextToClipboard('geko', 'Никнейм geko скопирован для лобби в CS2!')">
+                    <div class="flex items-start justify-between gap-4 mb-4 relative z-10">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-700/40 to-indigo-900/40 border border-purple-400/30 flex items-center justify-center group-hover:scale-110 group-hover:border-purple-400 transition duration-300 shadow-lg">
+                                <!-- Иконка прицела CS2 -->
+                                <svg class="w-8 h-8 text-purple-300 group-hover:text-white transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+                                    <circle cx="12" cy="12" r="8"/>
+                                    <line x1="12" y1="2" x2="12" y2="6"/>
+                                    <line x1="12" y1="18" x2="12" y2="22"/>
+                                    <line x1="2" y1="12" x2="6" y2="12"/>
+                                    <line x1="18" y1="12" x2="22" y2="12"/>
+                                    <circle cx="12" cy="12" r="2" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h3 class="text-lg font-display font-bold text-white group-hover:text-purple-300 transition">
+                                        Counter-Strike 2
+                                    </h3>
+                                    <span class="px-2 py-0.5 text-[10px] font-mono uppercase rounded bg-purple-500/25 text-purple-200 border border-purple-400/30">
+                                        FPS
+                                    </span>
+                                </div>
+                                <p class="text-xs font-mono text-purple-300/80 mt-0.5">
+                                    Премьер & Фейсит • Точные хэдшоты
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-sm text-slate-300/90 leading-relaxed mb-4 relative z-10">
+                        Люблю напряженные клатчи, жесткий аим с AK-47 и AWP, раскидки гранат на Mirage, Inferno и Anubis.
+                    </p>
+
+                    <div class="pt-3 border-t border-purple-500/20 flex items-center justify-between text-xs font-mono relative z-10">
+                        <span class="text-slate-400">Роль: <strong class="text-purple-300">Rifler / AWP</strong></span>
+                        <span class="text-purple-300 group-hover:translate-x-1 transition inline-flex items-center gap-1">
+                            Готов в пати →
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Игра 4: Dota 2 -->
+                <div class="glass-card spotlight-card game-tilt-card rounded-2xl p-6 group cursor-pointer" onclick="copyTextToClipboard('geko', 'Никнейм geko скопирован для пати в Dota 2!')">
+                    <div class="flex items-start justify-between gap-4 mb-4 relative z-10">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-700/40 to-violet-950/60 border border-purple-400/30 flex items-center justify-center group-hover:scale-110 group-hover:border-purple-400 transition duration-300 shadow-lg">
+                                <!-- Стилизованная иконка арены Dota 2 -->
+                                <svg class="w-8 h-8 text-purple-300 group-hover:text-white transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+                                    <rect x="3" y="3" width="18" height="18" rx="3"/>
+                                    <path d="M6 18L18 6" stroke-width="2.5" stroke-linecap="round"/>
+                                    <polygon points="7,7 11,7 7,11" fill="currentColor"/>
+                                    <polygon points="17,17 13,17 17,13" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h3 class="text-lg font-display font-bold text-white group-hover:text-purple-300 transition">
+                                        Dota 2
+                                    </h3>
+                                    <span class="px-2 py-0.5 text-[10px] font-mono uppercase rounded bg-purple-500/25 text-purple-200 border border-purple-400/30">
+                                        MOBA
+                                    </span>
+                                </div>
+                                <p class="text-xs font-mono text-purple-300/80 mt-0.5">
+                                    Рейтинг & Паблики • Любимые герои
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-sm text-slate-300/90 leading-relaxed mb-4 relative z-10">
+                        Тащу катки на кор-позициях и в миду, контроллю карту, собираю метовые билды и делаю камбэки с мегакрипами.
+                    </p>
+
+                    <div class="pt-3 border-t border-purple-500/20 flex items-center justify-between text-xs font-mono relative z-10">
+                        <span class="text-slate-400">Позиция: <strong class="text-purple-300">Pos 1 / Pos 2</strong></span>
+                        <span class="text-purple-300 group-hover:translate-x-1 transition inline-flex items-center gap-1">
+                            В поиске игры →
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4. СЕКЦИЯ КОНТАКТОВ И СОЦСЕТЕЙ ("Связаться со мной") -->
+        <section class="reveal-item delay-400">
+            <div class="flex items-center justify-between mb-4 px-1">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-2 h-6 rounded-full bg-gradient-to-b from-purple-400 to-purple-700 shadow-[0_0_12px_#9333ea]"></span>
+                    <h2 class="text-xl sm:text-2xl font-display font-bold text-white tracking-tight">
+                        Связаться со мной
+                    </h2>
+                </div>
+                <span class="text-xs font-mono text-purple-300/80">
+                    Все ссылки кликабельны
+                </span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                
+                <!-- Discord -->
+                <a href="https://discord.com/users/1173915236789669893" target="_blank" rel="noopener noreferrer" onclick="playClickSound(680, 'sine')" class="glass-card spotlight-card rounded-2xl p-4 sm:p-5 flex items-center justify-between group text-left w-full hover:-translate-y-1 transition-all duration-300">
+                    <div class="flex items-center gap-4 relative z-10">
+                        <div class="w-12 h-12 rounded-xl bg-purple-600/25 border border-purple-400/30 flex items-center justify-center text-purple-300 group-hover:bg-purple-600 group-hover:text-white group-hover:shadow-[0_0_20px_#9333ea] transition duration-300">
+                            <!-- Иконка Discord -->
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="text-sm font-display font-bold text-white group-hover:text-purple-300 transition">
+                                Discord
+                            </div>
+                            <div class="text-xs font-mono text-slate-400">
+                                Профиль geko • Открыть в Discord
+                            </div>
+                        </div>
+                    </div>
+                    <span class="text-purple-400 group-hover:translate-x-1.5 transition transform relative z-10">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <!-- Telegram -->
+                <a href="https://t.me/nadist2033" target="_blank" rel="noopener noreferrer" onclick="playClickSound(680, 'sine')" class="glass-card spotlight-card rounded-2xl p-4 sm:p-5 flex items-center justify-between group text-left w-full hover:-translate-y-1 transition-all duration-300">
+                    <div class="flex items-center gap-4 relative z-10">
+                        <div class="w-12 h-12 rounded-xl bg-purple-600/25 border border-purple-400/30 flex items-center justify-center text-purple-300 group-hover:bg-purple-600 group-hover:text-white group-hover:shadow-[0_0_20px_#9333ea] transition duration-300">
+                            <!-- Иконка Telegram -->
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="text-sm font-display font-bold text-white group-hover:text-purple-300 transition">
+                                Telegram
+                            </div>
+                            <div class="text-xs font-mono text-slate-400">
+                                @nadist2033 • Написать в ЛС
+                            </div>
+                        </div>
+                    </div>
+                    <span class="text-purple-400 group-hover:translate-x-1.5 transition transform relative z-10">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <!-- Steam Профиль -->
+                <a href="https://steamcommunity.com/profiles/76561199562717819/" target="_blank" rel="noopener noreferrer" onclick="playClickSound(680, 'sine')" class="glass-card spotlight-card rounded-2xl p-4 sm:p-5 flex items-center justify-between group text-left w-full hover:-translate-y-1 transition-all duration-300">
+                    <div class="flex items-center gap-4 relative z-10">
+                        <div class="w-12 h-12 rounded-xl bg-purple-600/25 border border-purple-400/30 flex items-center justify-center text-purple-300 group-hover:bg-purple-600 group-hover:text-white group-hover:shadow-[0_0_20px_#9333ea] transition duration-300">
+                            <!-- Иконка Steam -->
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25 1.297.539 2.793-.076 3.332-1.375.263-.63.264-1.319.005-1.949s-.75-1.121-1.377-1.383c-.624-.26-1.29-.249-1.878-.03l1.523.63c.956.4 1.409 1.5 1.009 2.455-.397.957-1.497 1.41-2.455 1.012H7.54zm11.415-9.303c0-1.662-1.353-3.015-3.015-3.015-1.665 0-3.015 1.353-3.015 3.015 0 1.665 1.35 3.015 3.015 3.015 1.663 0 3.015-1.35 3.015-3.015zm-5.273-.005c0-1.252 1.013-2.266 2.265-2.266 1.249 0 2.266 1.014 2.266 2.266 0 1.251-1.017 2.265-2.266 2.265-1.252 0-2.265-1.014-2.265-2.265z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="text-sm font-display font-bold text-white group-hover:text-purple-300 transition">
+                                Steam Профиль
+                            </div>
+                            <div class="text-xs font-mono text-slate-400">
+                                CS2 & Dota 2 • Добавить в друзья
+                            </div>
+                        </div>
+                    </div>
+                    <span class="text-purple-400 group-hover:translate-x-1.5 transition transform relative z-10">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <!-- Twitch -->
+                <a href="https://www.twitch.tv/gekosd" target="_blank" rel="noopener noreferrer" onclick="playClickSound(680, 'sine')" class="glass-card spotlight-card rounded-2xl p-4 sm:p-5 flex items-center justify-between group text-left w-full hover:-translate-y-1 transition-all duration-300">
+                    <div class="flex items-center gap-4 relative z-10">
+                        <div class="w-12 h-12 rounded-xl bg-purple-600/25 border border-purple-400/30 flex items-center justify-center text-purple-300 group-hover:bg-purple-600 group-hover:text-white group-hover:shadow-[0_0_20px_#9333ea] transition duration-300">
+                            <!-- Иконка Twitch -->
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="text-sm font-display font-bold text-white group-hover:text-purple-300 transition">
+                                Twitch
+                            </div>
+                            <div class="text-xs font-mono text-slate-400">
+                                twitch.tv/gekosd • Прямые эфиры
+                            </div>
+                        </div>
+                    </div>
+                    <span class="text-purple-400 group-hover:translate-x-1.5 transition transform relative z-10">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </span>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- Подвал сайта -->
+        <footer class="pt-8 text-center space-y-4">
+            <div class="w-full h-px bg-gradient-to-r from-transparent via-purple-500/40 to-transparent shadow-[0_0_12px_rgba(147,51,234,0.5)]"></div>
+            <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-void/70 border border-purple-500/25 text-xs font-mono text-purple-200/80 shadow-[0_0_20px_rgba(147,51,234,0.15)]">
+                <span>© <strong class="text-purple-300">geko</strong> — Все права защищены.</span>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Всплывающее уведомление (Toast) при копировании -->
+    <div id="toast-notification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 translate-y-6 transition-all duration-300">
+        <div class="px-5 py-3.5 rounded-2xl bg-void/95 border border-purple-400/50 backdrop-blur-xl shadow-[0_0_35px_rgba(147,51,234,0.65)] flex items-center gap-3">
+            <div class="w-7 h-7 rounded-full bg-purple-600/30 border border-purple-400 flex items-center justify-center text-purple-200 shrink-0">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                </svg>
+            </div>
+            <span id="toast-message" class="text-xs sm:text-sm font-mono font-medium text-white">
+                Скопировано в буфер обмена!
+            </span>
+        </div>
+    </div>
+
+    <!-- Скрипты анимаций, частиц, звука и интерактивности -->
+    <script>
+        /* ==========================================
+           1. WEB AUDIO API: НЕОНОВЫЕ ЗВУКИ КЛИКОВ
+           ========================================== */
+        let sfxEnabled = true;
+        let audioCtx = null;
+
+        function playClickSound(freq = 580, type = 'sine') {
+            if (!sfxEnabled) return;
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(freq * 1.4, audioCtx.currentTime + 0.08);
+
+                gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.09);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.09);
+            } catch (e) {
+                // Игнорируем ошибку, если браузер блокирует аудио
+            }
+        }
+
+        function toggleSoundEffects() {
+            sfxEnabled = !sfxEnabled;
+            const statusText = document.getElementById('sfx-status-text');
+            statusText.textContent = sfxEnabled ? 'SFX: ВКЛ' : 'SFX: ВЫКЛ';
+            if (sfxEnabled) playClickSound(660, 'triangle');
+        }
+
+        /* ==========================================
+           2. АНИМАЦИЯ ПЕЧАТНОЙ МАШИНКИ (TYPEWRITER)
+           ========================================== */
+        const roles = [
+            "Владелец сервера Minecraft",
+            "Игрок в CS2 & Dota 2",
+            "Minecraft & Roblox энтузиаст",
+            "Добро пожаловать в моё био"
+        ];
+
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typewriterElement = document.getElementById('typewriter-text');
+
+        function runTypewriter() {
+            const currentRole = roles[roleIndex];
+            if (isDeleting) {
+                charIndex--;
+                typewriterElement.textContent = currentRole.substring(0, charIndex);
+            } else {
+                charIndex++;
+                typewriterElement.textContent = currentRole.substring(0, charIndex);
+            }
+
+            let speed = isDeleting ? 35 : 70;
+
+            if (!isDeleting && charIndex === currentRole.length) {
+                speed = 2100; // Пауза после полного написания фразы
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                speed = 400;
+            }
+
+            setTimeout(runTypewriter, speed);
+        }
+
+        /* ==========================================
+           3. КОПИРОВАНИЕ В БУФЕР ОБМЕНА + УВЕДОМЛЕНИЕ
+           ========================================== */
+        let toastTimeout = null;
+
+        function copyTextToClipboard(text, message) {
+            playClickSound(720, 'sine');
+
+            // Используем надежный метод с созданием временного textarea для совместимости с iframe
+            const tempInput = document.createElement('textarea');
+            tempInput.value = text;
+            tempInput.style.position = 'fixed';
+            tempInput.style.opacity = '0';
+            document.body.appendChild(tempInput);
+            tempInput.focus();
+            tempInput.select();
+
+            try {
+                document.execCommand('copy');
+            } catch (err) {
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(text);
+                }
+            }
+            document.body.removeChild(tempInput);
+
+            showToast(message || 'Скопировано в буфер обмена!');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast-notification');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.textContent = message;
+
+            toast.classList.remove('opacity-0', 'translate-y-6');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            if (toastTimeout) clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-6');
+            }, 2800);
+        }
+
+        /* ==========================================
+           4. 3D НАКЛОН КАРТОЧЕК И ПОДСВЕТКА КУРСОРА
+           ========================================== */
+        let tiltEnabled = true;
+
+        function toggleTiltEffect() {
+            tiltEnabled = !tiltEnabled;
+            const statusText = document.getElementById('tilt-status-text');
+            statusText.textContent = tiltEnabled ? '3D: ВКЛ' : '3D: ВЫКЛ';
+            playClickSound(520, 'triangle');
+
+            if (!tiltEnabled) {
+                const heroCard = document.getElementById('hero-card');
+                if (heroCard) heroCard.style.transform = 'rotateX(0deg) rotateY(0deg)';
+            }
+        }
+
+        function initCardInteractions() {
+            // Подсветка курсора внутри всех карточек .spotlight-card
+            const spotlightCards = document.querySelectorAll('.spotlight-card');
+            spotlightCards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+                });
+            });
+
+            // 3D наклон главной карточки профиля
+            const heroCard = document.getElementById('hero-card');
+            if (heroCard) {
+                heroCard.addEventListener('mousemove', (e) => {
+                    if (!tiltEnabled || window.innerWidth < 768) return;
+                    const rect = heroCard.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    const rotateX = ((y - centerY) / centerY) * -5.5;
+                    const rotateY = ((x - centerX) / centerX) * 5.5;
+
+                    heroCard.style.transform = `rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
+                });
+
+                heroCard.addEventListener('mouseleave', () => {
+                    heroCard.style.transform = 'rotateX(0deg) rotateY(0deg)';
+                });
+            }
+
+            // Мягкий 3D наклон карточек игр
+            const gameCards = document.querySelectorAll('.game-tilt-card');
+            gameCards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    if (!tiltEnabled || window.innerWidth < 768) return;
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    const rotateX = ((y - centerY) / centerY) * -4;
+                    const rotateY = ((x - centerX) / centerX) * 4;
+
+                    card.style.transform = `perspective(900px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+                });
+            });
+        }
+
+        /* ==========================================
+           6. ИНТЕРАКТИВНЫЙ ХОЛСТ С ФИОЛЕТОВЫМИ ЧАСТИЦАМИ
+           ========================================== */
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: -1000, y: -1000 };
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            createParticles();
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        function createParticles() {
+            particles = [];
+            const count = Math.min(75, Math.floor((canvas.width * canvas.height) / 18000));
+            const colors = ['#9333ea', '#c084fc', '#6b21a8', '#e9d5ff'];
+
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 2.2 + 0.8,
+                    vx: (Math.random() - 0.5) * 0.45,
+                    vy: (Math.random() - 0.5) * 0.45,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    alpha: Math.random() * 0.65 + 0.2
+                });
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width) p.x = 0;
+                if (p.y < 0) p.y = canvas.height;
+                if (p.y > canvas.height) p.y = 0;
+
+                // Рисуем светящуюся частицу
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = p.alpha;
+                ctx.shadowBlur = 12;
+                ctx.shadowColor = p.color;
+                ctx.fill();
+
+                // Тонкие линии связи между близкими частицами и курсором
+                const dxMouse = mouse.x - p.x;
+                const dyMouse = mouse.y - p.y;
+                const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+                if (distMouse < 140) {
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.strokeStyle = '#c084fc';
+                    ctx.globalAlpha = (1 - distMouse / 140) * 0.25;
+                    ctx.lineWidth = 0.8;
+                    ctx.stroke();
+                }
+
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dx = p.x - p2.x;
+                    const dy = p.y - p2.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 110) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = '#9333ea';
+                        ctx.globalAlpha = (1 - dist / 110) * 0.14;
+                        ctx.lineWidth = 0.6;
+                        ctx.stroke();
+                    }
+                }
+            }
+            ctx.globalAlpha = 1;
+            requestAnimationFrame(animateParticles);
+        }
+
+        /* ==========================================
+           6. ЗАПУСК ВСЕХ СИСТЕМ ПОСЛЕ ЗАГРУЗКИ ОКНА
+           ========================================== */
+        window.onload = function () {
+            resizeCanvas();
+            createParticles();
+            animateParticles();
+            runTypewriter();
+            initCardInteractions();
+        };
+    </script>
+</body>
+</html>
